@@ -78,23 +78,22 @@ def find_data_and_branches(binary):
         else:
             continue
     
-    print("\nLabels:")
+    print("\n; Labels:")
     for p in [*entry_points, *branch_points]:
-        print("{0:#05x} - {1}".format(p, labels[p]))
+        print("; {0:#05x} - {1}".format(p, labels[p]))
     
     entry_points = sorted(entry_points)
     branch_points.append(len(binary))
     branch_points = sorted(branch_points)
 
-    print("\nGuessed data segments:")
+    print("\n; Guessed data segments:")
     data_blobs = []
     for p in entry_points:
         for q in branch_points:
             if q-p > 0:
-                print("\t *{0:#05x} to {1:#05x} data block of length {2}.".format(p,q-1, q-p))
+                print("; \t *{0:#05x} to {1:#05x} data block of length {2}.".format(p,q-1, q-p))
                 data_blobs += [i for i in range(p,q)]
                 break
-    #Todo: insert labels
     return labels, data_blobs
 
 # SLEDE8 DISASSEMBLER
